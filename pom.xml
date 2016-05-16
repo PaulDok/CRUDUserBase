@@ -10,6 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
+        <spring-context.version>4.2.6.RELEASE</spring-context.version>
         <spring-core.version>4.2.6.RELEASE</spring-core.version>
         <spring-webmvc.version>4.2.6.RELEASE</spring-webmvc.version>
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
@@ -18,6 +19,8 @@
         <hibernate-entitymanager.version>5.1.0.Final</hibernate-entitymanager.version>
         <commons-dbcp2.version>2.1.1</commons-dbcp2.version>
         <mysql-connector-java.version>5.1.38</mysql-connector-java.version>
+        <angularjs.version>1.5.5</angularjs.version>
+        <bootstrap.version>3.3.6</bootstrap.version>
     </properties>
 
     <dependencies>
@@ -29,11 +32,29 @@
         </dependency>
 
         <!-- WEB -->
+        <!-- Spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-context.version}</version>
+        </dependency>
         <!-- Spring-MVC -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring-webmvc.version}</version>
+        </dependency>
+        <!-- AngularJS webjar -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>${angularjs.version}</version>
+        </dependency>
+        <!-- Bootstrap -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
         </dependency>
         <!-- Javax servlet API -->
         <dependency>
@@ -74,7 +95,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql-connector-java.version}</version>
         </dependency>
-
 
     </dependencies>
 

@@ -12,15 +12,21 @@ import javax.servlet.ServletRegistration;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
 
-    private final static String DISPATCHER = "dispatcher";
+    private final static String CONFIG_LOCATION = "com.pauldok.cruduserbase.config";
 
     public void onStartup(ServletContext servletContext) throws ServletException {
-        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-        ctx.register(WebConfig.class);
-        servletContext.addListener(new ContextLoaderListener(ctx));
+        System.out.println("***** Initializing Application for " + servletContext.getServerInfo() + " *****");
 
-        ServletRegistration.Dynamic servlet = servletContext.addServlet(DISPATCHER, new DispatcherServlet(ctx));
+        // Create ApplicationContext
+        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext();
+        applicationContext.setConfigLocation(CONFIG_LOCATION);
+
+        // Add the servlet mapping manually and make it initialize automatically
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(applicationContext);
+        ServletRegistration.Dynamic servlet = servletContext.addServlet("mvc-dispatcher", dispatcherServlet);
+
         servlet.addMapping("/");
+        servlet.setAsyncSupported(true);
         servlet.setLoadOnStartup(1);
     }
 }
