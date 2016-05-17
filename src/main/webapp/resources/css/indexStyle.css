@@ -1,0 +1,36 @@
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+    vertical-align: top;
+}
+
+.oddRow {
+    background-color: lightblue;
+}
+
+.adminRow {
+    background-color: chartreuse;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px dotted black;
+    padding: 15px;
+}
+
+th {
+    font-size: larger;
+    color: white;
+    height: 50px;
+    background-color: #4CAF50;
+}
+
+h2 {
+    text-align: center;
+    vertical-align: middle;
+    width: 500px;
+}

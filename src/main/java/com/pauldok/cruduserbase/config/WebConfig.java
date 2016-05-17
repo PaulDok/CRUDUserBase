@@ -10,6 +10,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -32,9 +33,21 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/jsp/");
-        resolver.setSuffix(".jsp");
+        resolver.setPrefix("/WEB-INF/");
+        resolver.setSuffix(".html");
         return resolver;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/css/**")
+                .addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/resources/js/**")
+                .addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("/webjars/");
     }
 
     @Override

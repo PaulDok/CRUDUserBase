@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,16 +20,14 @@ public class UserBaseController {
     @Autowired
     private UserBaseService service;
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView indexPage() {
+        return new ModelAndView("index");
+    }
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public List<User> getAllUsers() {
         return service.getAllUsers();
-    }
-
-    @RequestMapping(value = "/greeting", method = RequestMethod.GET)
-    public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView model = new ModelAndView("index");
-        //model.addObject("msg", "hello world!");
-        return model;
     }
 
     private User getMockUser() {
