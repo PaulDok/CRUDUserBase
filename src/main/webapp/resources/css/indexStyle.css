@@ -1,15 +1,18 @@
+body{
+    padding: 10px;
+}
+
 label {
     display: inline-block;
     margin-bottom: 5px;
     vertical-align: top;
 }
 
-.oddRow {
-    background-color: lightblue;
+.ng-invalid.ng-dirty{
+    border-color: #FA787E;
 }
-
-.adminRow {
-    background-color: chartreuse;
+.ng-valid.ng-dirty{
+    border-color: #78FA89;
 }
 
 table {
@@ -19,7 +22,9 @@ table {
 
 th, td {
     border: 1px dotted black;
-    padding: 15px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 th {
@@ -29,8 +34,115 @@ th {
     background-color: #4CAF50;
 }
 
-h2 {
+.inputText {
+    width: 100px;
+    font-size: inherit;
+}
+
+.inputNumber {
+    width: 50px;
+    font-size: inherit;
+    align-content: center;
+}
+
+.oddRow {
+    background-color: lightblue;
+}
+
+.newUserRow {
+    background-color: chartreuse;
+}
+
+.filterRow {
+    background-color: #685502;
+}
+
+.animatedButton {
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
     text-align: center;
-    vertical-align: middle;
-    width: 500px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+.animatedButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+.animatedButton span:after {
+    content: 'X';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -20px;
+    transition: 0.5s;
+}
+.animatedButton:hover span {
+    padding-left: 25px;
+}
+.animatedButton:hover span:after {
+    opacity: 1;
+    left: 0;
+}
+
+.animatedEditButton {
+    border-radius: 4px;
+    background-color: cornflowerblue;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+.animatedEditButton span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+.animatedEditButton span:after {
+    content: '»';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+.animatedEditButton:hover span {
+    padding-right: 25px;
+}
+.animatedEditButton:hover span:after {
+    opacity: 1;
+    right: 0;
+}
+
+.animatedPressButton {
+    width: 100px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: inherit;
+    text-align: center;
+    cursor: pointer;
+    outline: black;
+    color: #fff;
+    background-color: #006916;
+    border-radius: 4px;
+}
+.animatedPressButton:hover {
+    background-color: #002f10
+}
+.animatedPressButton:active {
+    background-color: #002f10;
+    transform: translateY(4px);
 }

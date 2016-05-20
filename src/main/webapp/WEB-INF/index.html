@@ -9,24 +9,101 @@
     <link rel="stylesheet" href="../resources/css/indexStyle.css">
 </head>
 
-<body ng-controller="listController">
-    <h2>User base</h2>
+<body ng-controller="listController" name="form">
+    <h1>User base</h1>
+    <div>
+        <a>{{filterString()}}</a>
+        <button ng-click="resetFilterUser()">Clear filters</button>
+    </div>
+    <div><a>Showing Users {{firstIndexOnPage}} to {{lastIndexOnPage}} of {{totalCountOfUsers}}</a>
+        <button ng-click="changePage(currentPage-1)">Previous</button>
+        <button ng-click="changePage(currentPage+1)">Next</button>
+    </div>
+    <div>
+        <a>Show </a><button ng-click="changeUsersOnPage(5)">5</button><a> / </a><button ng-click="changeUsersOnPage(10)">10</button><a> / </a><button ng-click="changeUsersOnPage(20)">20</button><a> / </a><button ng-click="changeUsersOnPage(100)">100</button> on page</a>
+    </div>
     <table>
         <tr>
+            <th>ID</th>
             <th>Name</th>
             <th>Age</th>
             <th>Created date</th>
             <th>Admin</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>
+                <button class="animatedPressButton" ng-click="showFilterRow = !showFilterRow">
+                    <span>Filters</span>
+                </button>
+            </th>
+            <th>
+                <button class="animatedPressButton" ng-click="showNewUserRow = !showNewUserRow">
+                    <span>Add</span>
+                </button>
+            </th>
+        </tr>
+        <tr ng-show="showFilterRow" class="filterRow">
+            <td></td>
+            <td>
+                <input type="text" class="inputText" maxlength="25" name="filterName" ng-model="tempFilterName">
+            </td>
+            <td>
+                <input type="number" class="inputNumber" name="filterAge" ng-model="tempFilterAge">
+            </td>
+            <td></td>
+            <td>
+                <input type="checkbox" ng-checked="tempSearchAdmin" ng-click="tempSearchAdmin = !tempSearchAdmin; tempFilterAdmin = !tempFilterAdmin" style="width: 50px; height: 50px;">
+            </td>
+            <td>
+                <button class="animatedEditButton" ng-click="applyFilter()">
+                    <span>Apply</span>
+                </button>
+            </td>
+            <td>
+                <button class="animatedButton" ng-click="resetTempFilterUser()">
+                    <span>Cancel</span>
+                </button>
+            </td>
+        </tr>
+        <tr ng-show="showNewUserRow" class="newUserRow">
+            <td align="center">{{newUserId === -1 ? '' : newUserId}}</td>
+            <td>
+                <input type="text" name="username" maxlength="25" class="inputText" ng-model="newUserName" required>
+                <span style="color:red" ng-show="form.username.$dirty && form.username.$invalid"></span>
+            </td>
+            <td>
+                <input type="number" name="userage" class="inputNumber" ng-model="newUserAge" required>
+                <span style="color:red" ng-show="form.userage.$dirty && form.userage.$invalid"></span>
+            </td>
+            <td align="center">{{newUserCreatedDate === 0 ? '' : newUserCreatedDate | date:'yyyy-MM-dd HH:MM'}}</td>
+            <td>
+                <input type="checkbox" name="isadmin" ng-model="newUserIsAdmin" style="width: 50px; height: 50px;">
+            </td>
+            <td>
+                <button class="animatedEditButton" ng-click="submitNewUserToServer()">
+                    <span>Submit</span>
+                </button>
+            </td>
+            <td>
+                <button class="animatedButton" ng-click="resetNewUser()">
+                    <span>Cancel</span>
+                </button>
+            </td>
         </tr>
         <tr ng-repeat="user in users" ng-class="{oddRow: $odd}">
+            <td align="center">{{user.id}}</td>
             <td align="left">{{user.name}}</td>
             <td align="center">{{user.age}}</td>
-            <td align="center">{{user.createdDate | date:'yyyy-MM-dd'}}</td>
-            <td align="center">{{user.admin}}</td>
-            <td></td>
-            <td></td>
+            <td align="center">{{user.createdDate | date:'yyyy-MM-dd HH:MM'}}</td>
+            <td align="center"><input type="checkbox" disabled="disabled" ng-checked="user.admin" style="width: 50px; height: 50px;"></td>
+            <td>
+                <button class="animatedEditButton" ng-click="editUser($index)">
+                    <span>Edit</span>
+                </button>
+            </td>
+            <td>
+                <button class="animatedButton" ng-click="deleteUser(user.id)">
+                    <span>Delete</span>
+                </button>
+            </td>
         </tr>
     </table>
 </body>

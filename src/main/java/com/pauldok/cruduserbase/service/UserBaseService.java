@@ -5,9 +5,8 @@ import com.pauldok.cruduserbase.entity.User;
 import java.util.List;
 
 public interface UserBaseService {
-    User addUser(User user);
-    User updateUser(User user);
-    List<User> getAllUsers();
-    User getUserById(int id);
+    User addOrUpdateUser(User user);
+    List<User> getAllUsers(int fromIndex, int toIndex, String name, int age, boolean searchAdmin, boolean admin);
+    long getUserCount(String name, int age, boolean searchAdmin, boolean admin);
     void removeUser(int id);
 }

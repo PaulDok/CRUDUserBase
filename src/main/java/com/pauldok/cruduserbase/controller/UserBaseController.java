@@ -3,15 +3,9 @@ package com.pauldok.cruduserbase.controller;
 import com.pauldok.cruduserbase.entity.User;
 import com.pauldok.cruduserbase.service.UserBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,18 +19,31 @@ public class UserBaseController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> getAllUsers() {
-        return service.getAllUsers();
+    @RequestMapping(value = "/users/count", method = RequestMethod.GET)
+    public long getUserCount(@RequestParam (required = false) String name,
+                             @RequestParam (required = false) int age,
+                             @RequestParam (required = false) boolean admin,
+                             @RequestParam (required = false) boolean searchadmin) {
+        return service.getUserCount(name, age, searchadmin, admin);
     }
 
-    private User getMockUser() {
-        User user = new User();
-        user.setId(5);
-        user.setName("Paul");
-        user.setAge(29);
-        user.setAdmin(true);
-        user.setCreatedDate(new Date());
-        return user;
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public List<User> getAllUsers(@RequestParam int from, @RequestParam int to,
+                                  @RequestParam (required = false) String name,
+                                  @RequestParam (required = false) int age,
+                                  @RequestParam (required = false) boolean admin,
+                                  @RequestParam (required = false) boolean searchadmin) {
+        return service.getAllUsers(from, to, name, age, admin, searchadmin);
     }
+
+    @RequestMapping(value = "/users", method = RequestMethod.POST)
+    public void addOrUpdateUser(@RequestBody User user) {
+        service.addOrUpdateUser(user);
+    }
+
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
+    public void removeUser(@PathVariable int id) {
+        service.removeUser(id);
+    }
+
 }
